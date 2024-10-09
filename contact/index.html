@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Professional</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* General Styles */
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f7f9fc;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+        }
+        
+        .contact-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            max-width: 1200px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        h1 {
+            color: #333;
+            font-weight: 700;
+            text-align: left;
+            margin-bottom: 15px;
+        }
+        
+        p {
+            text-align: left;
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 25px;
+        }
+        
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+            font-size: 14px;
+        }
+        
+        input,
+        textarea {
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            width: 100%;
+            transition: all 0.3s ease;
+            background-color: #f9f9f9;
+        }
+        
+        input:focus,
+        textarea:focus {
+            border-color: #3498db;
+            outline: none;
+            background-color: #fff;
+        }
+        
+        button {
+            padding: 12px 0;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+        
+        .map-container {
+            padding: 20px;
+        }
+        
+        .map-container h2 {
+            text-align: left;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        iframe {
+            border-radius: 12px;
+            box-shadow: 0 3px 7px rgba(0, 0, 0, 0.1);
+        }
+        
+        #response {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 6px;
+            font-size: 16px;
+            text-align: center;
+            font-weight: 500;
+            display: none;
+        }
+        /* Media Queries */
+        
+        @media (max-width: 768px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="contact-container">
+        <div class="contact-details">
+            <h1>Contact Us</h1>
+            <p>We’re here to assist you with any inquiries or questions you may have.</p>
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="mobile">Mobile Number:</label>
+                    <input type="tel" id="mobile" name="mobile" placeholder="Enter your mobile number" pattern="[0-9]{10}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="subject">Subject:</label>
+                    <input type="text" id="subject" name="subject" placeholder="Enter the subject" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" rows="4" placeholder="Enter your message" required></textarea>
+                </div>
+
+                <button type="submit">Send Message</button>
+            </form>
+            <div id="response"></div>
+        </div>
+
+        <div class="map-container">
+            <h2>Our Location</h2>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.835434508583!2d144.95373631531667!3d-37.8162797797517!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d43fdf52c3d%3A0xb1d8f40fcbec7cb7!2sFederation+Square!5e0!3m2!1sen!2sin!4v1617001202339!5m2!1sen!2sin"
+                width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </div>
+
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script type="text/javascript">
+        emailjs.init('your_user_id');
+
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                mobile: document.getElementById('mobile').value,
+                subject: document.getElementById('subject').value,
+                message: document.getElementById('message').value
+            };
+
+            emailjs.send('your_service_id', 'your_template_id', formData)
+                .then(function(response) {
+                    document.getElementById('response').style.display = 'block';
+                    document.getElementById('response').textContent = 'Your message has been sent successfully!';
+                    document.getElementById('response').style.backgroundColor = '#d4edda';
+                    document.getElementById('response').style.color = '#155724';
+                }, function(error) {
+                    document.getElementById('response').style.display = 'block';
+                    document.getElementById('response').textContent = 'An error occurred. Please try again later.';
+                    document.getElementById('response').style.backgroundColor = '#f8d7da';
+                    document.getElementById('response').style.color = '#721c24';
+                });
+        });
+    </script>
+</body>
+
+</html>
